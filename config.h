@@ -7,6 +7,7 @@
 
 /* appearance */
 static const unsigned int borderpx  = 4;        /* border pixel of windows */
+static const unsigned int gappx     = 5;        /* gaps between windows */
 static const unsigned int snap      = 32;       /* snap pixel */
 static const int swallowfloating    = 0;        /* 1 means swallow floating windows by default */
 static const int showbar            = 1;        /* 0 means no bar */
@@ -54,6 +55,7 @@ static const Layout layouts[] = {
 
 /* key definitions */
 #define MODKEY Mod4Mask
+#define ALT Mod1Mask
 #define TAGKEYS(KEY,TAG) \
 	{ MODKEY,                       KEY,      view,           {.ui = 1 << TAG} }, \
 	{ MODKEY|ControlMask,           KEY,      toggleview,     {.ui = 1 << TAG} }, \
@@ -100,8 +102,11 @@ static Key keys[] = {
 	{ MODKEY,                       XK_period, focusmon,       {.i = +1 } },
 	{ MODKEY|ShiftMask,             XK_comma,  tagmon,         {.i = -1 } },
 	{ MODKEY|ShiftMask,             XK_period, tagmon,         {.i = +1 } },
-	{ MODKEY,                       XK_n, 	   shiftview,       {.i = +1 } },
-	{ MODKEY,                       XK_b, 	   shiftview,       {.i = -1 } },
+	{ MODKEY,                       XK_n, 	   shiftview,      {.i = +1 } },
+	{ MODKEY,                       XK_b, 	   shiftview,      {.i = -1 } },
+	{ MODKEY|ALT,                   XK_plus,   setgaps,        {.i = -1 } },
+	{ MODKEY|ALT,                   XK_minus,  setgaps,        {.i = +1 } },
+	{ MODKEY|ALT,                   XK_0,  setgaps,        {.i = 0 } },
 	TAGKEYS(                        XK_1,                      0)
 	TAGKEYS(                        XK_2,                      1)
 	TAGKEYS(                        XK_3,                      2)
