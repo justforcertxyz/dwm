@@ -1,6 +1,8 @@
 /* See LICENSE file for copyright and license details. */
 
 #define TERMINAL "alacritty"
+#define BROWSER "firefox"
+#define PASSMANAGER "keepassxc"
 
 /* appearance */
 static const unsigned int borderpx  = 4;        /* border pixel of windows */
@@ -14,13 +16,11 @@ static const char col_gray2[]       = "#444444";
 static const char col_gray3[]       = "#bbbbbb";
 static const char col_gray4[]       = "#eeeeee";
 static const char col_cyan[]        = "#005577";
-static const char col_grape[]       = "#6f2da8";
 static const char col_gold[]        = "#f9a602";
-static const char col_honey[]       = "#eb9605";
 static const char *colors[][3]      = {
 	/*               fg         bg         border   */
 	[SchemeNorm] = { col_gray3, col_gray1, col_gray2 },
-	[SchemeSel]  = { col_gray4, col_honey, col_honey },
+	[SchemeSel]  = { col_gray4, col_gold, col_gold },
 };
 
 /* tagging */
@@ -61,7 +61,7 @@ static const Layout layouts[] = {
 
 /* commands */
 static char dmenumon[2] = "0"; /* component of dmenucmd, manipulated in spawn() */
-static const char *dmenucmd[] = { "dmenu_run", "-m", dmenumon, "-fn", dmenufont, "-nb", col_gray1, "-nf", col_gray3, "-sb", col_cyan, "-sf", col_gray4, NULL };
+static const char *dmenucmd[] = { "dmenu_run", "-m", dmenumon, "-fn", dmenufont, "-nb", col_gray1, "-nf", col_gray3, "-sb", col_gold, "-sf", col_gray4, NULL };
 static const char *termcmd[]  = { TERMINAL, NULL };
 
 static Key keys[] = {
@@ -75,16 +75,21 @@ static Key keys[] = {
 	{ MODKEY,                       XK_d,      incnmaster,     {.i = -1 } },
 	{ MODKEY,                       XK_h,      setmfact,       {.f = -0.05} },
 	{ MODKEY,                       XK_l,      setmfact,       {.f = +0.05} },
-	{ MODKEY,                       XK_Return, zoom,           {0} },
-	//{ MODKEY,                       XK_Tab,    view,           {0} },
 	{ MODKEY|ShiftMask,             XK_c,      killclient,     {0} },
 	{ MODKEY,                       XK_t,      setlayout,      {.v = &layouts[0]} },
 	{ MODKEY,                       XK_f,      setlayout,      {.v = &layouts[1]} },
 	{ MODKEY,                       XK_m,      setlayout,      {.v = &layouts[2]} },
-	{ MODKEY,                       XK_space,  setlayout,      {0} },
-	{ MODKEY|ShiftMask,             XK_space,  togglefloating, {0} },
-	{ MODKEY,                       XK_0,      view,           {.ui = ~0 } },
-	{ MODKEY|ShiftMask,             XK_0,      tag,            {.ui = ~0 } },
+	{ MODKEY,             		XK_w,	   spawn,          SHCMD(BROWSER) },
+	{ MODKEY,             		XK_p,	   spawn,          SHCMD(PASSMANAGER) },
+	{ MODKEY,             		XK_plus,   spawn,          SHCMD("soundctrl up") },
+	{ MODKEY,             		XK_minus,  spawn,          SHCMD("soundctrl down") },
+	{ MODKEY|ShiftMask,  		XK_plus,   spawn,          SHCMD("soundctrl up 15") },
+	{ MODKEY|ShiftMask,  		XK_minus,  spawn,          SHCMD("soundctrl down 15") },
+	{ MODKEY|ShiftMask,  		XK_0,  	   spawn,          SHCMD("soundctrl toggle") },
+	//{ MODKEY,                       XK_space,  setlayout,      {0} },
+	//{ MODKEY|ShiftMask,             XK_space,  togglefloating, {0} },
+	//{ MODKEY,                       XK_0,      view,           {.ui = ~0 } },
+	//{ MODKEY|ShiftMask,             XK_0,      tag,            {.ui = ~0 } },
 	{ MODKEY,                       XK_comma,  focusmon,       {.i = -1 } },
 	{ MODKEY,                       XK_period, focusmon,       {.i = +1 } },
 	{ MODKEY|ShiftMask,             XK_comma,  tagmon,         {.i = -1 } },
